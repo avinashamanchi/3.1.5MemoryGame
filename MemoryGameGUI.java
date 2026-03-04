@@ -10,9 +10,9 @@
  * 6/1/2019
  * Copyright(c) 2019 PLTW to present. All rights reserved
  */
-import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
+import javax.swing.*;
 
 /**
  * Class to play Memory Game.
@@ -96,40 +96,34 @@ public class MemoryGameGUI extends JFrame
 
     // show each memory strings on a botton
     int buttonNum = -1; 
-    for (int i = 0; i < sequence.length; i++ )
-    {
-      if (playRandom)
-      {
-        buttonNum = (int)(Math.random() * gameButtons.length);
+      for (String sequence1 : sequence) {
+          if (playRandom)
+          {
+              buttonNum = (int)(Math.random() * gameButtons.length);
+          }
+          else
+          {
+              buttonNum += 1;
+              if (buttonNum > gameButtons.length-1)
+                  buttonNum = 0;
+          }   // wait a bit
+          // a try is like an if statement, "throwing" an error if the body of the try fails
+          try
+          {
+              Thread.sleep((int)delay);
+          } catch (InterruptedException ie) { /* do nothing */ }
+          // change button color and show the memory string
+          gameButtons[buttonNum].setBackground(new Color(230, 204, 255));
+          gameButtons[buttonNum].setText(sequence1);
+          // wait a bit
+          try
+          {
+              Thread.sleep((int)delay);
+          } catch (InterruptedException ie) { /* do nothing */ }
+          // show button as gray again and clear the memory string from it
+          gameButtons[buttonNum].setBackground(Color.GRAY);
+          gameButtons[buttonNum].setText("");
       }
-      else
-      {
-        buttonNum += 1;
-        if (buttonNum > gameButtons.length-1)
-        buttonNum = 0;
-      }
-
-      // wait a bit
-      // a try is like an if statement, "throwing" an error if the body of the try fails
-      try
-      {
-        Thread.sleep((int)delay);
-      } catch (InterruptedException ie) { /* do nothing */ }
-
-      // change button color and show the memory string
-      gameButtons[buttonNum].setBackground(new Color(230, 204, 255));
-      gameButtons[buttonNum].setText(sequence[i]);
-
-      // wait a bit
-      try
-      {
-        Thread.sleep((int)delay);
-      } catch (InterruptedException ie) { /* do nothing */ }
-
-      // show button as gray again and clear the memory string from it
-      gameButtons[buttonNum].setBackground(Color.GRAY);
-      gameButtons[buttonNum].setText("");
-    }
     
     JFrame frame = new JFrame();
     String seq = JOptionPane.showInputDialog(frame, "What is the sequence?");
@@ -153,9 +147,7 @@ public class MemoryGameGUI extends JFrame
   public boolean playAgain()
   {
     int n = JOptionPane.showConfirmDialog(this, "Do you want to play again?", "Memory Game", JOptionPane.YES_NO_OPTION);
-    if (n == JOptionPane.YES_OPTION )
-      return true;
-    return false;
+    return n == JOptionPane.YES_OPTION;
   }
 
   /**

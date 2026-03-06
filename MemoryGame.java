@@ -54,9 +54,9 @@ public class MemoryGame
             randomSeq[randIndex] = temp;
         }
 
-        // play the sequence on screen with a 5 second delay 
+        // play the sequence on screen with a .5 second delay 
         // the player's input guess is captured 
-        String guess = game.playSequence(randomSeq, 5);
+        String guess = game.playSequence(randomSeq, .5);
 
             // TO DO: If the gess is not null, determine a match
         
